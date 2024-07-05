@@ -3,8 +3,8 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from .views import HomeView, ChangePasswordView, UploadView, DoctorDetailAPIView, DoctorListCreateAPIView, PatientDetailAPIView, PatientListCreateAPIView, AppointmentDetailView, AppointmentListCreateView
-
+from .views import HomeView, ChangePasswordView, UploadView, DoctorDetailAPIView, DoctorListCreateAPIView, PatientDetailAPIView, PatientListCreateAPIView
+from medicalrecords.views import MedicalRecordRequestListView, UploadMedicalRecordView
 
 urlpatterns = [
     
@@ -31,8 +31,8 @@ urlpatterns = [
     path('patients/', PatientListCreateAPIView.as_view(), name='patient-list-create'),
     path('patients/<int:pk>/', PatientDetailAPIView.as_view(), name='patient-detail'),
     
-    path('appointments/', AppointmentListCreateView.as_view(), name='appointment-list-create'),
-    path('appointments/<int:pk>/', AppointmentDetailView.as_view(), name='appointment-detail'),
+    path('medical-record-requests/', MedicalRecordRequestListView.as_view(), name='medical-record-requests'),
+    path('upload-medical-record/', UploadMedicalRecordView.as_view(), name='upload-medical-record'),
 ]
 
 
