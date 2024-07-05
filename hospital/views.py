@@ -4,8 +4,7 @@ from rest_framework import status, generics, permissions
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .serializers import ChangePasswordSerializer, CSVUploadSerializer, AppointmentSerializer
-from .models import Appointment
+from .serializers import ChangePasswordSerializer, CSVUploadSerializer
 from doctor.models import Doctor
 from doctor.serializers import DoctorSerializer
 from patient.models import Patient
@@ -85,12 +84,4 @@ class PatientDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PatientSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class AppointmentListCreateView(generics.ListCreateAPIView):
-    queryset = Appointment.objects.all()
-    serializer_class = AppointmentSerializer
-    pagination_class = [permissions.IsAuthenticated]
 
-class AppointmentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Appointment.objects.all()
-    serializer_class = AppointmentSerializer
-    permission_classes = [permissions.IsAuthenticated]

@@ -33,21 +33,4 @@ class Hospital(models.Model):
     def __str__(self):
         return self.name
 
-class Appointment(models.Model):
-    patient = models.ForeignKey('patient.Patient', on_delete=models.CASCADE)
-    doctor = models.ForeignKey('doctor.Doctor', on_delete=models.CASCADE)
-    reason = models.TextField()
-    additional_details = models.TextField(blank=True, null=True)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    status = models.CharField(max_length=20, choices=[
-        ('scheduled', 'Scheduled'),
-        ('confirmed', 'Confirmed'),
-        ('completed', 'Completed'),
-        ('cancelled', 'Cancelled')
-    ], default='scheduled')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f"{self.patient.user.username} with {self.doctor.user.username} at {self.start_time}"

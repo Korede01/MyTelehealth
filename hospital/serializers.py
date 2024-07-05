@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from rest_framework import serializers, status
 from rest_framework.response import Response
-from .models import Appointment, Role
+from .models import Role
 from doctor.models import Doctor
 from patient.models import Patient
 
@@ -166,7 +166,5 @@ class CSVUploadSerializer(serializers.Serializer):
         )
         print(f"Email sent to: {user.email}")  # Debug statement
 
-class AppointmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Appointment
-        fields = ['id', 'patient', 'doctor', 'reason', 'additional_details', 'start_time', 'end_time', 'status', 'created_at', 'updated_at']
+
+
