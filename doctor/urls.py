@@ -3,7 +3,8 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from .views import HomeView, ChangePasswordView, DoctorAvailabilityView, DoctorAppointmentsView
+from .views import HomeView, ChangePasswordView
+from appointment.views import DoctorAvailabilityCreateView, DoctorAppointmentsView
 
 
 urlpatterns = [
@@ -21,7 +22,8 @@ urlpatterns = [
     
     path('password/', ChangePasswordView.as_view(), name='change-password'),
     
-    path('availability/', DoctorAvailabilityView.as_view(), name='doctor-availability'),
+    path('availability/', DoctorAvailabilityCreateView.as_view(), name='doctor-availability'),
+    
     path('appointments/', DoctorAppointmentsView.as_view(), name='doctor-appointments'),
     
 ]

@@ -1,14 +1,28 @@
-from cryptography.fernet import Fernet
-from django.conf import settings
+import datetime
+from appointment.models import DoctorAvailability
 
-def encrypt_data(data):
-    key = settings.ENCRYPTION_KEY.encode()
-    cipher_suite = Fernet(key)
-    encrypted_data = cipher_suite.encrypt(data.encode())
-    return encrypted_data.decode()
+def get_doctor_availability(doctor, date):
+    # Fetch non-recurring availability
+    availabilities = DoctorAvailability.objects.filter(
+        doctor=doctor, date=date, is_recurring=False
+    )
 
-def decrypt_data(encrypted_data):
-    key = settings.ENCRYPTION_KEY.encode()
-    cipher_suite = Fernet(key)
-    decrypted_data = cipher_suite.decrypt(encrypted_data.encode())
-    return decrypted_data.decode()
+    # Fetch recurring availability
+    recurring_availabilities = DoctorAvailability.objects.filter(
+        doctor=doctor, is_recurring=True
+    )
+
+    # Check if the given date matches any recurring pattern
+    day_of_week = date.weekday()
+    recurring_slots = []
+
+    for availability in recurring_availabilities:
+        pattern = availability.recurring_pattern
+        if day_of_week in pattern['days_of_week']:
+            recurring_slots.append({
+                'start_time': pattern['start_time'],
+                'end_time': pattern['end_time']
+            })
+
+    return availabilities, recurring_slots
+
