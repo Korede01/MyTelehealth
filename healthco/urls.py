@@ -8,5 +8,6 @@ urlpatterns = [
     path('admins/', include('adminpanel.urls')),
     path('hospital/', include('hospital.urls')),
     path('doctor/', include('doctor.urls')),
-    path('patient/', include('patient.urls'))
+    path('patient/', include('patient.urls')),
+    path('pay/', include('payment.urls')),
 ]
